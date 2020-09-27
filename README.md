@@ -14,10 +14,11 @@ source venv/bin/activate
 pip install .
 ```
 
-Install headless browsers for playwright
+If you have not used playwright yet, install headless browsers for playwright. This should be installed outside of the venv.
 ```
 python -m playwright install
 ```
+
 
 Fill the links.txt with the links from sreality you wish to download.
 
