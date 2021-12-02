@@ -8,6 +8,6 @@ RUN pip install .
 
 RUN python -m playwright install
 
-ENTRYPOINT ["dynalist_backuper"]
+ENTRYPOINT ["sreality_scrapper"]
 
 
