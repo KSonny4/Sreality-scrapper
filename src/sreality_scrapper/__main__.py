@@ -59,38 +59,6 @@ async def download_offer(url: str, semaphore: asyncio.Semaphore) -> None:
         async with async_playwright() as p:
             browser_type = p.chromium
             browser = await browser_type.launch(headless=False)
-            page = await browser.newPage()
-            await page.goto(url, timeout=0)
-
-            # click on the main picture
-            await page.click(
-                "//div[contains(@class,'download-cover')][contains(@ng-click,'showEntity(SHOW_ENTITY.FULLSCREEN)')]",
-                timeout=0,
-            )
-
-            # get current location in pictures
-            current, num_of_pictures = await get_current_image_order(page)
-
-            # shift to the beggining of album
-            while current != 1:
-                await page.click(
-                    "//button[contains(@class,'icon-arr-left')]", timeout=0
-                )
-                current, _ = await get_current_image_order(page)
-
-            # make screenshot of all pictures
-            for i in range(num_of_pictures):
-                await page.waitForTimeout(time_in_ms_between_every_screenshot)
-
-                fn = f"{i}.png"  # I don't know what is your fn
-                filepath = _path / fn
-                with filepath.open("w", encoding="utf-8") as f:
-                    await page.screenshot(path=filepath)
-
-                await page.click(
-                    "//button[contains(@class,'icon-arr-right')]", timeout=0
-                )
-
 import pathlib
 import asyncio
 from typing import List, Tuple
